@@ -93,6 +93,10 @@ export default function App() {
           <ReportPanel store={store} format={selectedFormat} />
         )}
       </div>
+
+      <footer style={{ textAlign: "center", padding: "16px", color: "#7f4aa4", fontSize: "12px", marginTop: "24px" }}>
+        &copy; 2026 kkkk405. Todos los derechos reservados.
+      </footer>
     </div>
   );
 }
