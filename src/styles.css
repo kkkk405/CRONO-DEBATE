@@ -82,7 +82,7 @@
   
   /* Texto de los ítems */
   .p-menubar .p-menuitem-link {
-    color: var(--accent) !important;
+    color: var(--muted) !important;
     background: transparent !important;
   }
   
@@ -90,24 +90,27 @@
   .p-menubar .p-menuitem-icon,
   .p-menubar .p-menuitem-text + .p-menuitem-icon,
   .p-menubar .p-submenu-list .p-menuitem-icon {
-    color: var(--accent) !important;
+    color: var(--muted) !important;
   }
   
-  /* Hover: amarillo suave */
+  /* Hover: pasa a morado */
   .p-menubar .p-menuitem-link:hover {
-    color: var(--muted) !important;
+    color: var(--accent) !important;
+  }
+  .p-menubar .p-menuitem-link:hover .p-menuitem-icon {
+    color: var(--accent) !important;
   }
 
   /* Pestaña activa */
   .p-menubar .p-menuitem.active-tab > .p-menuitem-content {
-    background: rgba(253, 188, 90, 0.15) !important;
+    background: rgba(127, 74, 164, 0.2) !important;
     border-radius: 6px !important;
-    outline: 2px solid var(--muted) !important;
+    outline: 2px solid var(--accent) !important;
     outline-offset: -2px !important;
   }
   .p-menubar .p-menuitem.active-tab > .p-menuitem-content .p-menuitem-link .p-menuitem-icon,
   .p-menubar .p-menuitem.active-tab > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
-    color: var(--muted) !important;
+    color: var(--accent) !important;
   }
   .p-menubar .p-menuitem-link:hover .p-menuitem-icon {
     color: var(--muted) !important;
