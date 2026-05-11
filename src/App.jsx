@@ -82,15 +82,20 @@ export default function App() {
       {/* Panel principal */}
       <div className="panel" style={{ marginTop: "70px" }}>
         {!selectedFormat ? (
-          <DebateFormats onSelectFormat={setSelectedFormat} /> // primero se muestra selección
+          <DebateFormats onSelectFormat={setSelectedFormat} />
         ) : tab === "moderation" ? (
-          <ModerationPanel store={store} format={selectedFormat} /> // pasamos formato
+          <ModerationPanel store={store} format={selectedFormat} />
         ) : tab === "config" ? (
           <ConfigPanel store={store} format={selectedFormat} />
-        ) : tab === "prep" ? (
-          <PrepTimerPanel key={selectedFormat} store={store} format={selectedFormat} />
-        ) : (
+        ) : tab === "prep" ? null : (
           <ReportPanel store={store} format={selectedFormat} />
+        )}
+
+        {/* Panel de preparación siempre montado (no se detiene al cambiar de pestaña) */}
+        {selectedFormat && (
+          <div style={{ display: tab === "prep" ? "block" : "none" }}>
+            <PrepTimerPanel key={selectedFormat} store={store} format={selectedFormat} />
+          </div>
         )}
       </div>
 
