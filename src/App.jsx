@@ -20,10 +20,10 @@ export default function App() {
   }
 
   const items = [
-    { label: "Moderación", icon: "pi pi-users", command: () => setTab("moderation") },
-    { label: "Configuración", icon: "pi pi-cog", command: () => setTab("config") },
-    { label: "Preparación", icon: "pi pi-clock", command: () => setTab("prep") },
-    { label: "Reporte", icon: "pi pi-file", command: () => setTab("report") },
+    { label: "Moderación", icon: "pi pi-users", className: tab === "moderation" ? "active-tab" : "", command: () => setTab("moderation") },
+    { label: "Configuración", icon: "pi pi-cog", className: tab === "config" ? "active-tab" : "", command: () => setTab("config") },
+    { label: "Preparación", icon: "pi pi-clock", className: tab === "prep" ? "active-tab" : "", command: () => setTab("prep") },
+    { label: "Reporte", icon: "pi pi-file", className: tab === "report" ? "active-tab" : "", command: () => setTab("report") },
 {
   label: "Borrar Datos",
   icon: "pi pi-trash",
