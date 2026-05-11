@@ -50,7 +50,7 @@
   }
   .button.primary { background: var(--active); border-color: var(--active); color: #7f4aa4; font-Weight: "bold"; }
   .button.danger { background: var(--danger); border-color: var(--danger); color: #d9d9d9; font-Weight: "bold";}
-  .button.success { background: var(--active); border-color: var(--active); color: #1e1b29; font-Weight: "bold"; }
+  .button.success { background: var(--muted); border-color: var(--muted); color: #1e1b29; font-Weight: "bold"; }
   
   .grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
