@@ -1,0 +1,196 @@
+:root {
+    --bg: #1e1b29;        /* Fondo morado oscuro */
+    --panel: #2a2139;     /* Paneles morado más claro */
+    --text: #d9d9d9;      /* Texto amarillo muy claro */
+    --muted: #fdbc5a;     /* Amarillo suave para detalles */
+    --accent: #7f4aa4;    /* Morado brillante para botones/acento */
+    --danger: #ef4444;    /* Rojo para alertas (se mantiene) */
+    --border: #7f4aa4;    /* Morado intenso para bordes */
+    --active: #facc15;    /* Amarillo fuerte para destacar activo */
+  }
+  
+  * { box-sizing: border-box; }
+  html, body, #root { height: 100%; }
+  body {
+    margin: 0; font-family: system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+  }
+  
+  .app {
+    max-width: 1000px; margin: 0 auto; padding: 24px;
+  }
+  
+  .header {
+    display: flex; align-items: center; gap: 12px; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  
+  .tabs {
+    display: flex; gap: 8px;
+  }
+  
+  .tab {
+    padding: 8px 12px; border: 1px solid var(--border);
+    background: var(--panel); color: var(--text); border-radius: 8px; cursor: pointer;
+  }
+  .tab.active { border-color: var(--active); color: #7f4aa4; }
+  
+  .panel {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px;
+  }
+  
+  .input, .select {
+    width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border);
+    background: #0b1220; color: var(--text);
+  }
+  
+  .button {
+    padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border);
+    background: #1f200b; color: var(--text); cursor: pointer;
+  }
+  .button.primary { background: var(--active); border-color: var(--active); color: #7f4aa4; font-Weight: "bold"; }
+  .button.danger { background: var(--danger); border-color: var(--danger); color: #d9d9d9; font-Weight: "bold";}
+  .button.success { background: var(--accent); border-color: var(--accent); color: #0b1220; font-Weight: "bold"; }
+  
+  .grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+  
+  .timer-card {
+    border: 2px solid var(--border); border-radius: 12px; padding: 12px;
+  }
+  .timer-card.active { border-color: var(--active); }
+  .timer-card.zero { border-color: var(--danger); background: rgba(239, 68, 68, 0.10); }
+  
+  .timer-header {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .timer-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  
+  .motion {
+    font-size: 20px; font-weight: 600; margin: 0;
+  }
+  
+  .helper { color: var(--muted); font-size: 12px; }
+  label { font-size: 14px; color: var(--muted); }
+
+/* Fondo del Menubar */
+.p-menubar {
+    background-color: var(--bg) !important;
+    border: none !important;
+  }
+  
+  /* Texto de los ítems */
+  .p-menubar .p-menuitem-link {
+    color: var(--accent) !important;
+  }
+  
+  /* Íconos */
+  .p-menubar .p-menuitem-icon {
+    color: var(--accent) !important;
+  }
+  
+  /* Hover: amarillo suave */
+  .p-menubar .p-menuitem-link:hover {
+    color: var(--muted) !important;
+  }
+
+  .debate-formats {
+  padding: 1rem;
+}
+
+.formats-grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.format-card {
+  flex: 1 1 250px;
+  border: 2px solid #7f4aa4;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #2a2139;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer; /* 👈 hace que se vea cliqueable */
+}
+
+.format-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background-color: #7f4aa4; /* suave morado al pasar el mouse */
+}
+
+.format-card h3 {
+  color: #fdbc5a;
+  margin-bottom: 8px;
+}
+
+.format-card p {
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+
+.format-card .button {
+  background-color: #fdbc5a;
+  color: #1e1b29;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.format-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  transition: transform 0.2s ease;
+}
+
+.format-card.clickable:hover {
+  transform: translateY(-3px);
+  cursor: pointer;
+}
+
+.premium-card {
+  border: 2px solid #fdbc5a; /* morado */
+  background: rgba(127, 74, 164, 0.1); /* morado translúcido */
+  position: relative;
+}
+
+.badge {
+  background-color: #fdbc5a;
+  color: #1e1b29;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+  
+/* Fondo general de la tabla */
+.p-datatable.morado {
+  background-color: #4b2e83; /* morado oscuro */
+  color: #f5f5f5;            /* texto claro */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Encabezados */
+.p-datatable.morado .p-datatable-thead > tr > th {
+  background-color: #7f4aa4; /* morado más claro */
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Filas */
+.p-datatable.morado .p-datatable-tbody > tr > td {
+  background-color: #5a3d85; /* tono intermedio */
+  color: #f5f5f5;
+  border-color: #6a3d99;
+}
+
+/* Hover en filas */
+.p-datatable.morado .p-datatable-tbody > tr:hover > td {
+  background-color: #6a3d99;
+}
