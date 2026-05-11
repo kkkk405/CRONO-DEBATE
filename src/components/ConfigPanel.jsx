@@ -526,8 +526,7 @@ return (
       cursor: "pointer"
     }}
   >
-    <i className="pi pi-sync" style={{ marginRight: "6px" }} />
-    Aleatorizar bancada y orden
+    <i className="pi pi-sync" style={{ fontSize: "1.2rem", color: "#000" }} />
   </button>
 </div>
 
