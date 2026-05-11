@@ -83,15 +83,21 @@
   /* Texto de los ítems */
   .p-menubar .p-menuitem-link {
     color: var(--accent) !important;
+    background: transparent !important;
   }
   
-  /* Íconos */
-  .p-menubar .p-menuitem-icon {
+  /* Íconos en todos los estados */
+  .p-menubar .p-menuitem-icon,
+  .p-menubar .p-menuitem-text + .p-menuitem-icon,
+  .p-menubar .p-submenu-list .p-menuitem-icon {
     color: var(--accent) !important;
   }
   
   /* Hover: amarillo suave */
   .p-menubar .p-menuitem-link:hover {
+    color: var(--muted) !important;
+  }
+  .p-menubar .p-menuitem-link:hover .p-menuitem-icon {
     color: var(--muted) !important;
   }
 
