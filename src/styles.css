@@ -100,9 +100,9 @@
 
   /* Pestaña activa */
   .p-menubar .p-menuitem.active-tab > .p-menuitem-content {
-    background: rgba(253, 188, 90, 0.15) !important;
+    background: rgba(127, 74, 164, 0.15) !important;
     border-radius: 6px !important;
-    outline: 2px solid var(--muted) !important;
+    outline: 2px solid var(--accent) !important;
     outline-offset: -2px !important;
   }
   .p-menubar .p-menuitem-link:hover .p-menuitem-icon {
