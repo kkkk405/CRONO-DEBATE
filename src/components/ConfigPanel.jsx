@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { parseMMSSToMs, formatMMSS } from "../utils/time";
-import 'primereact/resources/themes/lara-light-purple/theme.css'; 
-import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
+
 import { InputText } from 'primereact/inputtext';
 import { FloatLabel } from 'primereact/floatlabel';
 import { InputTextarea } from 'primereact/inputtextarea';
