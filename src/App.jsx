@@ -14,6 +14,7 @@ export default function App() {
   const [tab, setTab] = useState("moderation");
 
   function clearCache() {
+    if (!window.confirm("¿Estás seguro de borrar todos los datos de este formato?")) return;
     const cacheKey = `cronoDebate:${selectedFormat}`;
     localStorage.removeItem(cacheKey);
     window.location.reload();
@@ -31,19 +32,15 @@ export default function App() {
   template: (item, options) => (
     <a
       onClick={options.onClick}
-      className="p-menuitem-link" // usa la clase estándar de PrimeReact
+      className="p-menuitem-link"
       style={{
-        color: "red",
-        fontWeight: "bold",
-        border: "2px solid red",
-        borderRadius: "4px",
-        padding: "0.5rem 1rem", // mismo padding que los otros
+        color: "#c0392b",
         display: "flex",
         alignItems: "center"
       }}
     >
-      <i className={item.icon} style={{ color: "red", marginRight: "8px" }} />
-      <span className="p-menuitem-text">{item.label}</span>
+      <i className={item.icon} style={{ color: "#c0392b", marginRight: "8px", fontSize: "0.85rem" }} />
+      <span className="p-menuitem-text" style={{ fontSize: "0.85rem" }}>{item.label}</span>
     </a>
   )
 }
