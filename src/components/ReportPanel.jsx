@@ -166,7 +166,7 @@ export default function ReportPanel({ store, format }) {
             </thead>
             <tbody>${tbodyRows}</tbody>
           </table>
-          <h2>Ganadores</h2>
+          <h2>${isBP || format === "PERSO" ? "Posiciones" : "Resultados"}</h2>
           ${podiumHtml}
         </body>
       </html>
@@ -316,7 +316,7 @@ export default function ReportPanel({ store, format }) {
 
       {/* Ganadores */}
       <section style={{ marginBottom: "2rem" }}>
-        <h2 style={{ borderBottom: `1px solid ${mainColor}`, color: mainColor }}>Ganadores</h2>
+        <h2 style={{ borderBottom: `1px solid ${mainColor}`, color: mainColor }}>{isBP || format === "PERSO" ? "Posiciones" : "Resultados"}</h2>
         {isBP ? (
           rankedTeams.filter(t => t.total < 99).length === 0 ? (
             <p style={{ fontSize: "1.2rem", color: "#555" }}>Aún no definido</p>
