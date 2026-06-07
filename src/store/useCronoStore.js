@@ -1,53 +1,64 @@
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
+import { sanitizeText, sanitizeTeamName, sanitizeMotion } from "../utils/sanitize";
 
 export function useCronoStore(format) {
-  // Clave dinámica según formato
   const STORAGE_KEY = `cronoDebate:${format}`;
 
-  // Inicializamos directamente desde localStorage
-  const [motion, setMotion] = useState(() => {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return "";
+  function loadFromStorage() {
     try {
-      return JSON.parse(raw).motion || "";
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (typeof parsed !== "object" || parsed === null) return null;
+      return parsed;
     } catch {
-      return "";
+      return null;
     }
-  });
+  }
 
-  const [timers, setTimers] = useState(() => {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    try {
-      return (JSON.parse(raw).timers || []).map(t => ({
-        ...t,
-        isRunning: false,
-        team: t.team || "",
-        side: t.side || "Proposición"
+  function validateMotion(data) {
+    if (!data || typeof data.motion !== "string") return "";
+    return sanitizeMotion(data.motion);
+  }
+
+  function validateTimers(data) {
+    if (!data || !Array.isArray(data.timers)) return [];
+    return data.timers
+      .filter(t => t && typeof t === "object")
+      .map(t => ({
+        id: typeof t.id === "string" ? t.id : "",
+        name: sanitizeText(typeof t.name === "string" ? t.name : ""),
+        initialMs: typeof t.initialMs === "number" && t.initialMs >= 0 ? t.initialMs : 0,
+        remainingMs: typeof t.remainingMs === "number" && t.remainingMs >= 0 ? t.remainingMs : 0,
+        order: typeof t.order === "number" && Number.isInteger(t.order) ? t.order : 0,
+        team: sanitizeTeamName(typeof t.team === "string" ? t.team : ""),
+        side: t.side === "Oposición" ? "Oposición" : "Proposición",
+        isRunning: false
       }));
-    } catch {
-      return [];
-    }
-  });
+  }
 
-  const [teams, setTeams] = useState(() => {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    try {
-      return JSON.parse(raw).teams || [];
-    } catch {
-      return [];
-    }
-  });
+  function validateTeams(data) {
+    if (!data || !Array.isArray(data.teams)) return [];
+    return data.teams
+      .filter(t => typeof t === "string")
+      .map(t => sanitizeTeamName(t))
+      .filter(Boolean);
+  }
+
+  const stored = loadFromStorage();
+
+  const [motion, setMotion] = useState(() => validateMotion(stored));
+  const [timers, setTimers] = useState(() => validateTimers(stored));
+  const [teams, setTeams] = useState(() => validateTeams(stored));
 
   const [activeTimerId, setActiveTimerId] = useState(null);
   const intervalsRef = useRef(new Map());
 
-  // agregar equipo
   function addTeam(name) {
-    if (!name.trim()) return;
-    setTeams(prev => [...prev, name.trim()]);
+    const cleaned = sanitizeTeamName(name);
+    if (!cleaned) return;
+    setTeams(prev => [...prev, cleaned]);
   }
 
   // eliminar equipo
@@ -77,20 +88,24 @@ export function useCronoStore(format) {
   function addTimer({ name, initialMs, team = "", side = "Proposición" }) {
     const newTimer = {
       id: uuid(),
-      name,
+      name: sanitizeText(name || ""),
       initialMs,
       remainingMs: initialMs,
       order: timers.length,
       isRunning: false,
-      team,
-      side
+      team: sanitizeTeamName(team),
+      side: side === "Oposición" ? "Oposición" : "Proposición"
     };
     setTimers(prev => [...prev, newTimer]);
   }
 
   function updateTimer(id, patch) {
+    const safePatch = { ...patch };
+    if ("name" in safePatch) safePatch.name = sanitizeText(safePatch.name || "");
+    if ("team" in safePatch) safePatch.team = sanitizeTeamName(safePatch.team || "");
+    if ("side" in safePatch) safePatch.side = safePatch.side === "Oposición" ? "Oposición" : "Proposición";
     setTimers(prev =>
-      prev.map(t => (t.id === id ? { ...t, ...patch } : t))
+      prev.map(t => (t.id === id ? { ...t, ...safePatch } : t))
     );
   }
 

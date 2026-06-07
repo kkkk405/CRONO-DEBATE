@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { parseMMSSToMs, formatMMSS } from "../utils/time";
+import { sanitizeText, sanitizeTeamName, sanitizeMotion } from "../utils/sanitize";
 
 import { InputText } from 'primereact/inputtext';
 import { FloatLabel } from 'primereact/floatlabel';
@@ -228,7 +229,7 @@ return (
   <InputTextarea
     id="motion"
     value={motion}
-    onChange={(e) => setMotion(e.target.value)}
+    onChange={(e) => setMotion(sanitizeMotion(e.target.value))}
     style={{
       width: "100%",
       backgroundColor: "rgba(127, 74, 164, 0.1)",
@@ -272,7 +273,7 @@ return (
     <InputText
       id="team"
       value={newTeam}
-      onChange={(e) => setNewTeam(e.target.value)}
+      onChange={(e) => setNewTeam(sanitizeTeamName(e.target.value))}
       style={{
         width: "100%",
         backgroundColor: "rgba(127, 74, 164, 0.1)",
@@ -361,7 +362,7 @@ return (
         <InputText
           id="name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setName(sanitizeText(e.target.value))}
           style={{
             width: "100%",
             backgroundColor: "rgba(127, 74, 164, 0.1)",

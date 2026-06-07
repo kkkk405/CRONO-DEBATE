@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { escapeHtml } from "../utils/sanitize";
 import "primeicons/primeicons.css";
 import "../styles.css";
 
@@ -113,10 +114,26 @@ export default function ReportPanel({ store, format }) {
   }, [scores, timers, isBP]);
 
   function handlePrint() {
-    // Clonamos el contenido sin el botón
-    const panel = document.querySelector(".report-panel").cloneNode(true);
-    const noPrint = panel.querySelector(".no-print");
-    if (noPrint) noPrint.remove();
+    const tbodyRows = getOrderedTimers.map(t => {
+      const score = scores[t.id] || "";
+      const pos = isBP
+        ? (teamPlaces[t.team] ? `${teamPlaces[t.team]}°` : "-")
+        : format === "WS"
+          ? (wsSides && wsSides.length > 0 && wsSides[0].total > 0
+              ? (t.side === wsSides[0].side ? "1°" : "2°")
+              : "-")
+          : (calculatedPositions[t.id] ? `${calculatedPositions[t.id]}°` : "-");
+
+      return `<tr>
+        <td>${escapeHtml(t.name || "—")}</td>
+        <td>${escapeHtml(t.team || "—")}</td>
+        <td>${escapeHtml(t.side || "—")}</td>
+        <td>${escapeHtml(String(score))}</td>
+        <td>${escapeHtml(pos)}</td>
+      </tr>`;
+    }).join("");
+
+    const podiumHtml = buildPodiumHtml();
 
     const printWindow = window.open("", "", "width=800,height=600");
     printWindow.document.write(`
@@ -128,20 +145,60 @@ export default function ReportPanel({ store, format }) {
             h1, h2 { color: #000; }
             table, th, td { border: 1px solid #000; border-collapse: collapse; padding: 8px; }
             input, select { border: 1px solid #333; background: transparent; color: black; }
-            .podium-gold { background: #FFD700 !important; }
-            .podium-silver { background: #C0C0C0 !important; }
-            .podium-bronze { background: #CD7F32 !important; }
           </style>
         </head>
         <body>
-          ${panel.innerHTML}
+          <h1 style="text-align:center;">Acta de Debate ${escapeHtml(format)}</h1>
+          <p style="text-align:center;font-style:italic;">Fecha: ${escapeHtml(today)}</p>
+          <hr/>
+          <h2>Moción</h2>
+          <p>${escapeHtml(motion || "Sin moción registrada")}</p>
+          <h2>Participantes</h2>
+          <table style="width:100%;border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Equipo</th>
+                <th>Bancada</th>
+                <th>Puntaje</th>
+                <th>Posición</th>
+              </tr>
+            </thead>
+            <tbody>${tbodyRows}</tbody>
+          </table>
+          <h2>Ganadores</h2>
+          ${podiumHtml}
         </body>
       </html>
     `);
     printWindow.document.close();
     printWindow.focus();
-    printWindow.print();
-    printWindow.close();
+    setTimeout(() => {
+      printWindow.print();
+      printWindow.close();
+    }, 250);
+  }
+
+  function buildPodiumHtml() {
+    if (isBP) {
+      const filtered = rankedTeams.filter(t => t.total < 99);
+      if (filtered.length === 0) return "<p>Aún no definido</p>";
+      const medals = ["🥇", "🥈", "🥉", "🫂"];
+      return filtered.map((rt, idx) => {
+        const teamScore = teamsList.find(t => t === rt.team) ? teamTotals[rt.team] : 0;
+        return `<p>${medals[idx] || ""} ${escapeHtml(rt.team)} — ${escapeHtml(String(teamScore))} pts</p>`;
+      }).join("");
+    }
+    if (format === "WS") {
+      if (!wsSides || wsSides.length === 0 || wsSides[0].total === 0) return "<p>Aún no definido</p>";
+      return wsSides.map((s, i) =>
+        `<p>${i === 0 ? "🏆" : "🫂"} ${escapeHtml(s.side)} — ${escapeHtml(String(s.total))} pts</p>`
+      ).join("");
+    }
+    return rankedTeams.slice(0, 4).map((rt, i) => {
+      const medals = ["🥇", "🥈", "🥉"];
+      return `<p>${medals[i] || "🫂"} ${escapeHtml(rt.team)} — ${escapeHtml(String(rt.total))} pts</p>`;
+    }).join("");
   }
 
   return (
