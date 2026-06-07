@@ -42,7 +42,7 @@ export default function ModerationPanel({ store, format }) {
           onClick={pauseAll}
           style={{ backgroundColor: "#fdbc5a", color: "#1e1b29", fontWeight: "bold" }}
         >
-          <i className="pi pi-pause"  /> Pausar todo
+          <i className="pi pi-pause"  />
         </button>
       </div>
 
