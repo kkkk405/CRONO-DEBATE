@@ -33,14 +33,10 @@ export default function App() {
     <a
       onClick={options.onClick}
       className="p-menuitem-link"
-      style={{
-        color: "#c0392b",
-        display: "flex",
-        alignItems: "center"
-      }}
+      style={{ color: "#c0392b" }}
     >
-      <i className={item.icon} style={{ color: "#c0392b", marginRight: "8px", fontSize: "0.85rem" }} />
-      <span className="p-menuitem-text" style={{ fontSize: "0.85rem" }}>{item.label}</span>
+      <i className={item.icon} style={{ color: "#c0392b", marginRight: "8px" }} />
+      <span className="p-menuitem-text">{item.label}</span>
     </a>
   )
 }
