@@ -12,8 +12,6 @@ export default function ModerationPanel({ store, format }) {
 
   const sides = sidesByFormat[format] || ["Proposición", "Oposición"];
 
-  const sideOrder = { "Proposición": 0, "Oposición": 1 };
-
   const sortedTimersBySide = (side) => {
     const sideTimers = timers.filter(t => t.side === side);
     const teamFirstOrder = {};
@@ -74,10 +72,9 @@ export default function ModerationPanel({ store, format }) {
                     padding: "2px 8px",
                     borderRadius: "4px"
                   }}>
-                    {ti === 0 ? "⬆ Cámara Baja" : "⬇ Cámara Alta"}
+                    {ti === 0 ? "⬇ Cámara Alta" : "⬆ Cámara Baja"}
                   </span>
-                  <span style={{ color: "#d9d9d9", fontSize: "13px" }}>{teamName}</span>
-                </div>
+                                  </div>
                 {sideTimers
                   .filter(t => t.team === teamName)
                   .map(t => (
@@ -114,7 +111,7 @@ export default function ModerationPanel({ store, format }) {
                 ) : (
                   <i className="pi pi-minus-circle" style={{ color: "#fdbc5a", marginRight: "8px", fontSize: "1.5rem" }} />
                 )}
-                {sideName}
+                {format === "BP" && sideName === "Proposición" ? "Gobierno" : sideName}
               </h3>
               {content}
             </div>

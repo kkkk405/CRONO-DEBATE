@@ -256,7 +256,7 @@ export default function ReportPanel({ store, format }) {
                         ) : (
                           <i className="pi pi-minus-circle" style={{ marginRight: "6px" }} />
                         )}
-                        {t.side}
+                        {isBP && t.side === "Proposición" ? "Gobierno" : t.side}
                       </span>
                     </td>
                     {isBP ? (
