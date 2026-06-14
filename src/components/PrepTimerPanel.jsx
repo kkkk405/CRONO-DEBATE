@@ -42,7 +42,7 @@ export default function PrepTimerPanel({ store, format }) {
   {/* Mostrar la moción */}
   <div style={{ marginBottom: "1rem", textAlign: "center"}}>
     <h3 style={{ color: "#7f4aa4" }}>Moción</h3>
-    <h2 style={{ fontSize: "1.2rem" }}>
+    <h2 style={{ fontSize: "1.2rem", wordBreak: "break-word", overflowWrap: "break-word" }}>
       {motion || "Sin moción registrada"}{" "}
       <span className="badge" style={{ fontWeight: "bold" }}>
         {format}

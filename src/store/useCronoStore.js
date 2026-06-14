@@ -57,7 +57,7 @@ export function useCronoStore(format) {
 
   function addTeam(name) {
     const cleaned = sanitizeTeamName(name);
-    if (!cleaned) return;
+    if (!cleaned.trim()) return;
     setTeams(prev => [...prev, cleaned]);
   }
 
@@ -181,7 +181,7 @@ export function useCronoStore(format) {
     pauseTimer(id);
     const t = timers.find(x => x.id === id);
     if (!t) return;
-    updateTimer(id, { remainingMs: t.initialMs });
+    updateTimer(id, { remainingMs: t.initialMs, isRunning: false });
   }
 
   function pauseAll() {

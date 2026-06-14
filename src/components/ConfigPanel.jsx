@@ -230,13 +230,17 @@ return (
     id="motion"
     value={motion}
     onChange={(e) => setMotion(sanitizeMotion(e.target.value))}
+    rows={4}
     style={{
       width: "100%",
       backgroundColor: "rgba(127, 74, 164, 0.1)",
       color: "#d9d9d9",
       border: "1px solid #ddd",
       borderRadius: "6px",
-      padding: "10px"
+      padding: "10px",
+      wordBreak: "break-word",
+      overflowWrap: "break-word",
+      whiteSpace: "pre-wrap"
     }}
   />
   <label htmlFor="motion">Texto de la moción</label>

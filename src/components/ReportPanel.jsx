@@ -152,7 +152,7 @@ export default function ReportPanel({ store, format }) {
           <p style="text-align:center;font-style:italic;">Fecha: ${escapeHtml(today)}</p>
           <hr/>
           <h2>Moción</h2>
-          <p>${escapeHtml(motion || "Sin moción registrada")}</p>
+          <p style="word-break:break-word;overflow-wrap:break-word;">${escapeHtml(motion || "Sin moción registrada")}</p>
           <h2>Participantes</h2>
           <table style="width:100%;border-collapse:collapse;">
             <thead>
@@ -220,7 +220,7 @@ export default function ReportPanel({ store, format }) {
     <h2 style={{ borderBottom: `2px solid ${mainColor}`, color: mainColor }}>
       Moción
     </h2>
-    <p style={{ fontSize: "1.2rem" }}>
+    <p style={{ fontSize: "1.2rem", wordBreak: "break-word", overflowWrap: "break-word" }}>
       {motion || "Sin moción registrada"}{" "}
       
     </p>

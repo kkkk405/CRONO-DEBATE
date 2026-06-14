@@ -1,30 +1,25 @@
-const MAX_STRING_LENGTH = 500;
-
 export function sanitizeText(value) {
   if (typeof value !== "string") return "";
   return value
-    .slice(0, MAX_STRING_LENGTH)
+    .slice(0, 30)
     .replace(/<[^>]*>/g, "")
-    .replace(/[<>]/g, "")
-    .trim();
+    .replace(/[<>]/g, "");
 }
 
 export function sanitizeTeamName(value) {
   if (typeof value !== "string") return "";
   return value
-    .slice(0, 100)
+    .slice(0, 30)
     .replace(/<[^>]*>/g, "")
-    .replace(/[<>]/g, "")
-    .trim();
+    .replace(/[<>]/g, "");
 }
 
 export function sanitizeMotion(value) {
   if (typeof value !== "string") return "";
   return value
-    .slice(0, MAX_STRING_LENGTH)
+    .slice(0, 300)
     .replace(/<[^>]*>/g, "")
-    .replace(/[<>]/g, "")
-    .trim();
+    .replace(/[<>]/g, "");
 }
 
 export function escapeHtml(str) {

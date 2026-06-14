@@ -84,16 +84,18 @@ export default function TimerCard({ timer, isActive, onStart, onPause, onReset, 
         </p>
       )}
 
-      <div className="timer-actions" style={{ marginTop: 8 }}>
+      {/* Botones ocultos (se controla tocando la tarjeta). 
+          Para restaurarlos, cambia "display: none" por "marginTop: 8" */}
+      <div className="timer-actions" style={{ display: "none" }}>
         {!timer.isRunning && !atZero && (
           <button className="button success" onClick={onStart}><i className="pi pi-play" /></button>
         )}
         {timer.isRunning && (
           <button className="button" onClick={onPause}><i className="pi pi-pause" /></button>
         )}
-        {format !== "BP" && (
-          <button className="button" onClick={onReset}><i className="pi pi-undo" /></button>
-        )}
+      </div>
+      <div style={{ marginTop: 8 }}>
+        <button className="button" onClick={() => { if (window.confirm("¿Reiniciar este cronómetro?")) onReset(); }}><i className="pi pi-undo" /></button>
       </div>
     </div>
   );
