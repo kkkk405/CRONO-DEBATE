@@ -14,6 +14,7 @@ export default function ReportPanel({ store, format }) {
   const isBP = format === "BP";
   const showPosition = !isBP;
   const showScores = true;
+  const [showPodiumScores, setShowPodiumScores] = useState(false);
 
   const teamsList = useMemo(() => {
     const set = new Set();
@@ -316,7 +317,25 @@ export default function ReportPanel({ store, format }) {
 
       {/* Ganadores */}
       <section style={{ marginBottom: "2rem" }}>
-        <h2 style={{ borderBottom: `1px solid ${mainColor}`, color: mainColor }}>{isBP || format === "PERSO" ? "Posiciones" : "Resultados"}</h2>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `1px solid ${mainColor}` }}>
+          <h2 style={{ color: mainColor, margin: 0 }}>{isBP || format === "PERSO" ? "Posiciones" : "Resultados"}</h2>
+          <button
+            onClick={() => setShowPodiumScores(!showPodiumScores)}
+            style={{
+              background: showPodiumScores ? mainColor : "#e9ecef",
+              color: showPodiumScores ? "#fff" : "#333",
+              border: "none",
+              borderRadius: "6px",
+              padding: "0.4rem 0.8rem",
+              fontSize: "0.8rem",
+              fontWeight: "bold",
+              cursor: "pointer",
+              transition: "all 0.3s"
+            }}
+          >
+            {showPodiumScores ? "Ocultar puntajes" : "Revelar puntajes"}
+          </button>
+        </div>
         {isBP ? (
           rankedTeams.filter(t => t.total < 99).length === 0 ? (
             <p style={{ fontSize: "1.2rem", color: "#555" }}>Aún no definido</p>
@@ -362,9 +381,11 @@ export default function ReportPanel({ store, format }) {
                       borderRadius: "0 0 8px 8px",
                       fontSize: idx === 0 ? "1rem" : "0.9rem",
                       fontWeight: "bold",
-                      color: idx === 0 ? "#b8860b" : "#555"
+                      color: idx === 0 ? "#b8860b" : "#555",
+                      transition: "opacity 0.3s",
+                      opacity: showPodiumScores ? 1 : 0
                     }}>
-                      {teamScore} pts
+                      {showPodiumScores ? `${teamScore} pts` : "—"}
                     </div>
                   </div>
                 );
@@ -400,9 +421,11 @@ export default function ReportPanel({ store, format }) {
                     marginTop: "0.5rem",
                     fontSize: "0.9rem",
                     fontWeight: "bold",
-                    color: "#7f4aa4"
+                    color: "#7f4aa4",
+                    transition: "opacity 0.3s",
+                    opacity: showPodiumScores ? 1 : 0
                   }}>
-                    Bancada ganadora · {wsSides[0].total} pts
+                    {showPodiumScores ? `Bancada ganadora · ${wsSides[0].total} pts` : "Bancada ganadora"}
                   </div>
                 </div>
               )}
@@ -429,9 +452,11 @@ export default function ReportPanel({ store, format }) {
                     marginTop: "0.5rem",
                     fontSize: "0.9rem",
                     fontWeight: "bold",
-                    color: "#555"
+                    color: "#555",
+                    transition: "opacity 0.3s",
+                    opacity: showPodiumScores ? 1 : 0
                   }}>
-                    Bancada perdedora · {wsSides[1].total} pts
+                    {showPodiumScores ? `Bancada perdedora · ${wsSides[1].total} pts` : "Bancada perdedora"}
                   </div>
                 </div>
               )}
@@ -471,9 +496,11 @@ export default function ReportPanel({ store, format }) {
                   borderRadius: "0 0 8px 8px",
                   fontSize: "1rem",
                   fontWeight: "bold",
-                  color: "#b8860b"
+                  color: "#b8860b",
+                  transition: "opacity 0.3s",
+                  opacity: showPodiumScores ? 1 : 0
                 }}>
-                  {rankedTeams[0].total} pts
+                  {showPodiumScores ? `${rankedTeams[0].total} pts` : "—"}
                 </div>
               </div>
             )}
@@ -507,9 +534,11 @@ export default function ReportPanel({ store, format }) {
                   padding: "0.5rem",
                   borderRadius: "0 0 8px 8px",
                   fontSize: "0.9rem",
-                  color: "#555"
+                  color: "#555",
+                  transition: "opacity 0.3s",
+                  opacity: showPodiumScores ? 1 : 0
                 }}>
-                  {rankedTeams[1].total} pts
+                  {showPodiumScores ? `${rankedTeams[1].total} pts` : "—"}
                 </div>
               </div>
             )}
@@ -543,9 +572,11 @@ export default function ReportPanel({ store, format }) {
                   padding: "0.5rem",
                   borderRadius: "0 0 8px 8px",
                   fontSize: "0.9rem",
-                  color: "#555"
+                  color: "#555",
+                  transition: "opacity 0.3s",
+                  opacity: showPodiumScores ? 1 : 0
                 }}>
-                  {rankedTeams[2].total} pts
+                  {showPodiumScores ? `${rankedTeams[2].total} pts` : "—"}
                 </div>
               </div>
             )}
@@ -579,9 +610,11 @@ export default function ReportPanel({ store, format }) {
                   padding: "0.5rem",
                   borderRadius: "0 0 8px 8px",
                   fontSize: "0.9rem",
-                  color: "#555"
+                  color: "#555",
+                  transition: "opacity 0.3s",
+                  opacity: showPodiumScores ? 1 : 0
                 }}>
-                  {rankedTeams[3].total} pts
+                  {showPodiumScores ? `${rankedTeams[3].total} pts` : "—"}
                 </div>
               </div>
             )}
