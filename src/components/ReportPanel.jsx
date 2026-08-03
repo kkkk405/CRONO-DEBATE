@@ -12,6 +12,11 @@ export default function ReportPanel({ store, format }) {
   const accentColor = "#fdbc5a";
 
   const isBP = format === "BP";
+
+  const sideLabels = {
+    PERSO: { "Proposición": "A favor", "Oposición": "En contra" }
+  };
+  const sideLabel = (side) => sideLabels[format]?.[side] ?? side;
   const showPosition = !isBP;
   const showScores = true;
   const [showPodiumScores, setShowPodiumScores] = useState(false);
@@ -257,7 +262,7 @@ export default function ReportPanel({ store, format }) {
                         ) : (
                           <i className="pi pi-minus-circle" style={{ marginRight: "6px" }} />
                         )}
-                        {isBP && t.side === "Proposición" ? "Gobierno" : t.side}
+                        {isBP && t.side === "Proposición" ? "Gobierno" : sideLabel(t.side)}
                       </span>
                     </td>
                     {isBP ? (

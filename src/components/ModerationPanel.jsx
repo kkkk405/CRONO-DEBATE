@@ -12,6 +12,11 @@ export default function ModerationPanel({ store, format }) {
 
   const sides = sidesByFormat[format] || ["Proposición", "Oposición"];
 
+  const sideLabels = {
+    PERSO: { "Proposición": "A favor", "Oposición": "En contra" }
+  };
+  const sideLabel = (side) => sideLabels[format]?.[side] ?? side;
+
   const sortedTimersBySide = (side) => {
     const sideTimers = timers.filter(t => t.side === side);
     const teamFirstOrder = {};
@@ -36,7 +41,6 @@ export default function ModerationPanel({ store, format }) {
           <span className="badge"style={{ fontWeight: "bold" }}>{format}</span>
         </h2>
       </div>
-
 
       {/* División en columnas según bancadas */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
@@ -111,7 +115,7 @@ export default function ModerationPanel({ store, format }) {
                 ) : (
                   <i className="pi pi-minus-circle" style={{ color: "#fdbc5a", marginRight: "8px", fontSize: "1.5rem" }} />
                 )}
-                {format === "BP" && sideName === "Proposición" ? "Gobierno" : sideName}
+                {format === "BP" && sideName === "Proposición" ? "Gobierno" : sideLabel(sideName)}
               </h3>
               {content}
             </div>
