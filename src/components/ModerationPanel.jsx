@@ -1,8 +1,13 @@
+import { useState } from "react";
 import TimerCard from "./TimerCard";
 import 'primeicons/primeicons.css';
 
 export default function ModerationPanel({ store, format }) {
   const { motion, timers, activeTimerId, startTimer, pauseTimer, resetTimer } = store;
+  const [showMotion, setShowMotion] = useState(true);
+
+  const motionText = motion || "Moción sin definir";
+  const maskedMotion = "•".repeat(Math.max(8, motionText.length));
 
   const sidesByFormat = {
     bp: ["Proposición", "Oposición"],
@@ -37,9 +42,26 @@ export default function ModerationPanel({ store, format }) {
     <div>
       <div className="header" style={{ marginBottom: 12 }}>
         <h2 className="motion">
-          {motion || "Moción sin definir"}{" "}
+          {showMotion ? motionText : maskedMotion}{" "}
           <span className="badge"style={{ fontWeight: "bold" }}>{format}</span>
         </h2>
+        <button
+          type="button"
+          onClick={() => setShowMotion(!showMotion)}
+          title={showMotion ? "Ocultar moción" : "Revelar moción"}
+          style={{
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "1.1rem",
+            color: showMotion ? "#7f4aa4" : "#fdbc5a",
+            padding: "4px",
+            display: "inline-flex",
+            alignItems: "center"
+          }}
+        >
+          <i className={showMotion ? "pi pi-eye" : "pi pi-eye-slash"} />
+        </button>
       </div>
 
       {/* División en columnas según bancadas */}

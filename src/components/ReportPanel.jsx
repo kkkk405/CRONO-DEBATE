@@ -325,20 +325,21 @@ export default function ReportPanel({ store, format }) {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `1px solid ${mainColor}` }}>
           <h2 style={{ color: mainColor, margin: 0 }}>{isBP || format === "PERSO" ? "Posiciones" : "Resultados"}</h2>
           <button
+            type="button"
             onClick={() => setShowPodiumScores(!showPodiumScores)}
+            title={showPodiumScores ? "Ocultar puntajes" : "Revelar puntajes"}
             style={{
-              background: showPodiumScores ? mainColor : "#e9ecef",
-              color: showPodiumScores ? "#fff" : "#333",
+              background: "none",
               border: "none",
-              borderRadius: "6px",
-              padding: "0.4rem 0.8rem",
-              fontSize: "0.8rem",
-              fontWeight: "bold",
               cursor: "pointer",
-              transition: "all 0.3s"
+              fontSize: "1.1rem",
+              color: showPodiumScores ? mainColor : "#fdbc5a",
+              padding: "4px",
+              display: "inline-flex",
+              alignItems: "center"
             }}
           >
-            {showPodiumScores ? "Ocultar puntajes" : "Revelar puntajes"}
+            <i className={showPodiumScores ? "pi pi-eye-slash" : "pi pi-eye"} />
           </button>
         </div>
         {isBP ? (
